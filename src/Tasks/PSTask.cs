@@ -111,6 +111,12 @@ namespace DurJobManager.Tasks
         {
           logLevel = LogLevel.Error;
         }
+
+        if (!ErrorOnCancel)
+        {
+          logLevel = (LogLevel)(Math.Min((int)LogLevel.Warning, (int)logLevel));
+        }
+
         logger.Log(logLevel,
           this.EventID, ($"[{this.Command}] " +
           $"Finished in {watch.Elapsed:hh\\:mm\\:ss\\.ffff}" +
