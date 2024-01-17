@@ -70,9 +70,15 @@ namespace DurJobManager.Worker
         {
           if (jobGroup.Job.IsNowActive())
           {
-            this._backgroundQueue.Enqueue(new Tasks.PSTask(jobGroup.Job));
+            if (jobGroup.Job.LastRun == null || (DateTime.Now - jobGroup.Job.LastRun.Value).TotalSeconds > 10)
+            {
+              jobGroup.Job.LastRun = DateTime.Now;
+              this._backgroundQueue.Enqueue(new Tasks.PSTask(jobGroup.Job));
+            }
           }
         }
+
+        await Task.Delay(100);
       }
     }
 

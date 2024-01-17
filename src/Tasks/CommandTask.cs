@@ -73,10 +73,7 @@ namespace DurJobManager.Tasks
         watch.Stop();
         this.Runtime = watch.Elapsed;
 
-        if (this.EventWaitHandle != null)
-        {
-          this.EventWaitHandle.Set();
-        }
+        this.EventWaitHandle?.Set();
       }
 
       await Task.CompletedTask;

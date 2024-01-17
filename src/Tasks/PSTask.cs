@@ -91,10 +91,7 @@ namespace DurJobManager.Tasks
         logger.LogError(ex, $"Error running PSTask {this.Name}");
       } finally
       {
-        if (this.EventWaitHandle != null)
-        {
-          this.EventWaitHandle.Set();
-        }
+        this.EventWaitHandle?.Set();
 
         if (manager?.PostAction != null)
         {

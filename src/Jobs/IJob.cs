@@ -8,6 +8,7 @@ namespace DurJobManager.Jobs
 
     #region Properties
 
+    DateTime? LastRun { get; set; }
     int EventID { get; init; }
     JobType JobType {  get; init; }
     string? Function { get; init; }

@@ -12,6 +12,8 @@ namespace DurJobManager.Jobs
 
     #region Properties
 
+    public DateTime? LastRun { get; set; }
+
     #region RunAtStartupJob
 
     public bool RunAtStartup { get; init; } = false;
