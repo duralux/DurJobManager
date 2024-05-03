@@ -103,11 +103,11 @@ namespace DurJobManager.Tasks
 
         //rs?.Dispose();
 
-        var logLevel = (LogLevel)(Math.Max((int)LogLevel.Information, (int)rs.MaxLogLevel));
+        var logLevel = (LogLevel)(Math.Max((int)LogLevel.Information, (int)(rs?.MaxLogLevel ?? 0)));
         logger.Log(logLevel,
           this.EventID, ($"[{this.Command}] " +
           $"Finished in {watch.Elapsed:hh\\:mm\\:ss\\.ffff}" +
-          Environment.NewLine + rs.Log?.ToString()).Trim());
+          Environment.NewLine + rs?.Log?.ToString()).Trim());
       }
     }
 
