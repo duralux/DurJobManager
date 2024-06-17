@@ -24,6 +24,7 @@ namespace DurJobManager.Tasks
     public TimeSpan Runtime { get; set; }
     public EventWaitHandle? EventWaitHandle { get; set; }
     public bool ErrorOnCancel { get; set; }
+    public bool ErrorOnException { get; set; }
 
     #endregion
 
@@ -49,6 +50,7 @@ namespace DurJobManager.Tasks
       this.EventID = job.EventID;
       this.Timeout = job.Timeout;
       this.ErrorOnCancel = job.ErrorOnCancel;
+      this.ErrorOnException = job.ErrorOnException;
 
       if (job.JobType != Jobs.JobType.PowerShell)
       {

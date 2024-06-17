@@ -83,7 +83,8 @@ namespace DurJobManager.Service
         }
         catch (Exception ex)
         {
-          logger.LogError(task.EventID, ex, $"Error with Job: {task.Command}");
+          logger.Log(task.ErrorOnException ? LogLevel.Error : LogLevel.Information, 
+            task.EventID, ex, $"Error with Job: {task.Command}");
         }
         finally
         {

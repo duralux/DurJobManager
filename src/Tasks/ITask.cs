@@ -18,6 +18,7 @@ namespace DurJobManager.Tasks
     TimeSpan Runtime { get; set; }
     EventWaitHandle? EventWaitHandle { get; set; }
     bool ErrorOnCancel { get; set; }
+    bool ErrorOnException { get; set; }
 
     #endregion
 

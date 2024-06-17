@@ -19,6 +19,7 @@ namespace DurJobManager.Jobs
     public string? Name { get; init; }
     public bool IsActive { get; init; }
     public bool ErrorOnCancel { get; init; }
+    public bool ErrorOnException { get; init; }
 
     public DateTime? StartDate { get; init; }
     public DateTime? StopDate { get; init; }
