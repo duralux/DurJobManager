@@ -57,8 +57,8 @@ namespace DurJobManager.Jobs
 
     public Manager()
     {
-      this.Jobs = new List<GeneralJob>();
-      this.Parameters = new Dictionary<string, string>();
+      this.Jobs = [];
+      this.Parameters = [];
     }
 
     #endregion

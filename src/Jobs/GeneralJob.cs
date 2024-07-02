@@ -67,8 +67,8 @@ namespace DurJobManager.Jobs
 
     public GeneralJob()
     {
-      this.Times = new List<TimeSpan>();
-      this.ContentTypes = new List<string>();
+      this.Times = [];
+      this.ContentTypes = [];
     }
 
     #endregion

@@ -34,7 +34,7 @@ namespace DurJobManager.Worker
       this._backgroundQueue = backgroundQueue;
       this._logger = logger;
 
-      this._fsw = new List<System.IO.FileSystemWatcher>();
+      this._fsw = [];
     }
 
     #endregion

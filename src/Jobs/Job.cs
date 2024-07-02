@@ -38,7 +38,7 @@ namespace DurJobManager.Jobs
     {
       this.JobType = JobType.PowerShell;
       this.Timeout = TimeSpan.FromSeconds(60);
-      this.Parameters = new Dictionary<string, string>();
+      this.Parameters = [];
       this.IsActive = true;
       this.ErrorOnCancel = true;
       this.EventID = 1;

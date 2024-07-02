@@ -23,7 +23,7 @@ namespace DurJobManager.Jobs
 
     #region Constants
 
-    private static readonly char[] ALLOWED_DAYS = new char[] { 'M', 'T', 'W', 'R', 'F', 'S', 'U' };
+    private static readonly char[] ALLOWED_DAYS = ['M', 'T', 'W', 'R', 'F', 'S', 'U'];
 
     #endregion
 

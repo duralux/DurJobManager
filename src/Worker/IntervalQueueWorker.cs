@@ -31,7 +31,7 @@ namespace DurJobManager.Worker
       this._jobManager = options.Value;
       this._backgroundQueue = backgroundQueue;
 
-      this._timers = new List<System.Timers.Timer>();
+      this._timers = [];
     }
 
     #endregion
