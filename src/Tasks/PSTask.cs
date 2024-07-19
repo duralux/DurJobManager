@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace DurJobManager.Tasks
 {
+  [DebuggerDisplay("{Name,nq}, {Command,nq}, {EventID, nq}")]
   public class PSTask : ITask
   {
 
@@ -78,32 +79,21 @@ namespace DurJobManager.Tasks
           .GetService<IOptions<Jobs.Manager>>()?
           .Value;
 
-        if (manager?.PreAction != null)
-        {
-          manager?.PreAction(this, serviceProvider, rs.GetParametersFromFunction(this.Command), this.Parameters);
-        }
+        manager?.PreAction?.Invoke(this, serviceProvider, rs.GetParametersFromFunction(this.Command), this.Parameters);
 
         watch.Start();
         this.Result = (await rs
           .RunCommandAsync(this.Command, this.Parameters!, true, cancellationToken));
         watch.Stop();
+
         this.Runtime = watch.Elapsed;
-      } catch(Exception ex)
+      } catch
       {
-        logger.LogError(ex, $"Error running PSTask {this.Name}");
+        throw;
       } finally
       {
-        if (this.EventWaitHandle != null)
-        {
-          this.EventWaitHandle.Set();
-        }
-
-        if (manager?.PostAction != null)
-        {
-          manager?.PostAction(this, serviceProvider, rs.GetParametersFromFunction(this.Command), this.Parameters, this.Result);
-        }
-
-        //rs?.Dispose();
+        this.EventWaitHandle?.Set();
+        manager?.PostAction?.Invoke(this, serviceProvider, rs.GetParametersFromFunction(this.Command), this.Parameters, this.Result);
 
         var logLevel = (LogLevel)(Math.Max((int)LogLevel.Information, (int)(rs?.MaxLogLevel ?? 0)));
         logger.Log(logLevel,
