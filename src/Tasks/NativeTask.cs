@@ -29,17 +29,10 @@ namespace DurJobManager.Tasks
 
     #region Initialization
 
-    public NativeTask(string command, string? arguments = null!, bool wait = false)
+    public NativeTask(Jobs.IJob job) 
     {
-      this.Command = command;
-      this.Arguments = arguments;
-      this.Wait = wait;
-    }
-
-
-    public NativeTask(Jobs.IJob job) :
-      this(job.Function!)
-    {
+      ArgumentNullException.ThrowIfNull(job.Function);
+      this.Command = job.Function;
       this.Name = job.Name;
       this.EventID = job.EventID;
       this.Timeout = job.Timeout;

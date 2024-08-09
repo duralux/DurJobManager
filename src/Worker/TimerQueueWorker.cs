@@ -56,9 +56,7 @@ namespace DurJobManager.Worker
         if (jobsFilterd.Any())
         { jobs = jobsFilterd; }
 
-        jobs = jobs
-          .OrderBy(j => j.Time)
-          .ToList();
+        jobs = [.. jobs.OrderBy(j => j.Time)];
 
         var firstTime = jobs.First().Time;
         var waitTime = firstTime < DateTime.Now.TimeOfDay ?

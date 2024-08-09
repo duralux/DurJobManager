@@ -29,17 +29,11 @@ namespace DurJobManager.Tasks
 
     #region Initialization
 
-    public CommandTask(string command, string? arguments = null!, bool wait = false)
+    public CommandTask(Jobs.IJob job)
     {
-      this.Command = command;
-      this.Arguments = arguments;
-      this.Wait = wait;
-    }
+      ArgumentNullException.ThrowIfNull(job.Function);
 
-
-    public CommandTask(Jobs.IJob job) :
-      this(job.Function!)
-    {
+      this.Command = job.Function;
       this.Name = job.Name;
       this.EventID = job.EventID;
       this.Timeout = job.Timeout;
@@ -74,11 +68,8 @@ namespace DurJobManager.Tasks
         await p.WaitForExitAsync(cancellationToken);
         watch.Stop();
         this.Runtime = watch.Elapsed;
-
-        if (this.EventWaitHandle != null)
-        {
-          this.EventWaitHandle.Set();
-        }
+        
+        this.EventWaitHandle?.Set();
       }
 
       await Task.CompletedTask;

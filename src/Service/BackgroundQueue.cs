@@ -8,40 +8,25 @@ using Microsoft.Extensions.Options;
 
 namespace DurJobManager.Service
 {
-  public class BackgroundQueue
+  public class BackgroundQueue(ILoggerFactory loggerFactory,
+    IOptions<Jobs.Manager> manager, IServiceProvider serviceProvider)
   {
 
     #region Properties
 
-    private readonly ILoggerFactory _loggerFactory;
-    private readonly Jobs.Manager _jobManager;
-    private readonly IServiceProvider _serviceProvider;
+    private readonly ILoggerFactory _loggerFactory = loggerFactory;
+    private readonly Jobs.Manager _jobManager = manager.Value;
+    private readonly IServiceProvider _serviceProvider = serviceProvider;
     private int _concurrentCount;
 
     internal int ConcurrentCount => this._concurrentCount;
-    internal ConcurrentQueue<Tasks.ITask> TaskQueue { get; private set; }
+    internal ConcurrentQueue<Tasks.ITask> TaskQueue { get; private set; } = new ConcurrentQueue<Tasks.ITask>();
 
     internal int MaxConcurrentCount => this._jobManager.MaxConcurrentJobs;
     internal TimeSpan QueueCheckInterval => this._jobManager.QueueCheckInterval;
 
     public TimeSpan ConsumedTime { get; private set; }
-    public DateTime StartTime { get; init; }
-
-    #endregion
-
-
-    #region Initialization
-
-    public BackgroundQueue(ILoggerFactory loggerFactory,
-      IOptions<Jobs.Manager> manager, IServiceProvider serviceProvider)
-    {
-      this._loggerFactory = loggerFactory;
-      this._jobManager = manager.Value;
-      this._serviceProvider = serviceProvider;
-
-      this.TaskQueue = new ConcurrentQueue<Tasks.ITask>();
-      this.StartTime = DateTime.Now;
-    }
+    public DateTime StartTime { get; init; } = DateTime.Now;
 
     #endregion
 

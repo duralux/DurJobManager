@@ -100,8 +100,7 @@ namespace DurJobManager.Worker
       if (!job.IsNowActive())
       { return; }
 
-      this._logger.LogInformation($"Start job '{job.Name}' from event {e.ChangeType} " +
-        $" on file: {e.FullPath}");
+      this._logger.LogInformation($"Start job '{job.Name}' from event {e.ChangeType} on file: {e.FullPath}");
       await Task.Delay(job.MinAge);
 
       if (e.ChangeType == System.IO.WatcherChangeTypes.Deleted &&
