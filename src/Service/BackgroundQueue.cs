@@ -64,12 +64,12 @@ namespace DurJobManager.Service
         } catch (OperationCanceledException ex)
         {
           logger.Log(task.ErrorOnCancel ? LogLevel.Error : LogLevel.Information,
-            new EventId(1), ex, $"Opeartion canceled: {task.Command}");
+            new EventId(1), ex, $"Opeartion canceled: {task.Command} >> {ex.InnerException}");
         }
         catch (Exception ex)
         {
           logger.Log(task.ErrorOnException ? LogLevel.Error : LogLevel.Information, 
-            task.EventID, ex, $"Error with Job: {task.Command}");
+            task.EventID, ex, $"Error with Job: {task.Command} >> {ex.InnerException}");
         }
         finally
         {
